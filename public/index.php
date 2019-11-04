@@ -3,10 +3,18 @@ use Medoo\Medoo;
 
 require_once '../vendor/autoload.php';
 
-$db = new medoo([
+$db = new Medoo([
     'database_type' => 'sqlite',
     'database_file' => '../storage/database.db'
 ]);
+
+$comment = new Ashokani\Comment($db);
+// $comment->setEmail('hi@ashz.xyz')
+//         ->setName('Ashokani')
+//         ->setComment('It should work!!')
+//         ->save();
+
+dump($comment);
 
 ?>
 <!doctype html>

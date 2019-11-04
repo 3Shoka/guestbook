@@ -9,6 +9,11 @@
             "email": "hi@ashz.xyz"
         }
     ],
+    "autoload": {
+        "psr-4": {
+            "Ashokani\\": "src"
+        }
+    },
     "require": {
         "catfan/medoo": "^1.7"
     },
