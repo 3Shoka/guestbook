@@ -67,7 +67,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST')
   <![endif]-->
 
   <!-- Add your site or application content here -->
-  <p>Hello world! This is HTML5 Boilerplate.</p>
+  <?php foreach ($comment->findAll() as $comment) : ?>
+    <div class="comment">
+        <h3>On <?= $comment->getSubmissionDate() ?>, <?= $comment->getName() ?> wrote:</h3>
+        <p><?= $comment->getComment(); ?></p>
+    </div>
+  <?php endforeach; ?>
+  
+
     <form method="post">
         <label>Name: <input type="text" name="name" placeholder="Your name"></label>
         <label>Email: <input type="text" name="email" placeholder="your@email.com"></label>
