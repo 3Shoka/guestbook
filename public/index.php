@@ -24,7 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST')
     $v->required('email')->email()->lengthBetween(5, 255);
     $v->required('comment')->lengthBetween(10, null);
     $result = $v->validate($_POST);
-
+    
     if ($result->isValid()) {
         try {
             $comment
@@ -57,6 +57,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST')
 
   <link rel="stylesheet" href="css/normalize.css">
   <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/custom.css">
 
   <meta name="theme-color" content="#fafafa">
 </head>
