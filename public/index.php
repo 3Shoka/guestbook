@@ -1,5 +1,7 @@
 <?php
+
 use Medoo\Medoo;
+use Particle\Validator\Validator;
 
 require_once '../vendor/autoload.php';
 
@@ -14,13 +16,31 @@ $db = new Medoo([
 ]);
 
 $comment = new Ashokani\Comment($db);
-// $comment->setEmail('hi@ashz.xyz')
-//         ->setName('Ashokani')
-//         ->setComment('It should work!!')
-//         ->save();
 
-dump($comment);
+if ($_SERVER['REQUEST_METHOD'] === 'POST') 
+{
+    $v = new Validator();
+    $v->required('name')->lengthBetween(1, 100)->alnum(true);
+    $v->required('email')->email()->lengthBetween(5, 255);
+    $v->required('comment')->lengthBetween(10, null);
+    $result = $v->validate($_POST);
 
+    if ($result->isValid()) {
+        try {
+            $comment
+            ->setName($_POST['name'])
+            ->setEmail($_POST['email'])
+            ->setComment($_POST['comment'])
+            ->save();
+            header('Location: /');
+            return;
+            } catch (\Exception $e) {
+                die($e->getMessage());
+            }
+    } else {
+        dump($result->getMessages());
+    }
+}
 ?>
 <!doctype html>
 <html class="no-js" lang="">
